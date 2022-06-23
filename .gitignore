@@ -1,3 +1,18 @@
+#ignore directory
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+[Bb]uild/
+CMakeFiles/
+config/
+Win32/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
 # Prerequisites
 *.d
 
