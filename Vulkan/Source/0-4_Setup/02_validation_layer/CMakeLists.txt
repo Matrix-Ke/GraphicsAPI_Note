@@ -8,7 +8,7 @@ file(GLOB_RECURSE SOURCE_FILES "*.cpp")
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCE_FILES})
 # add_executable(TutorialName ${HEADER_FILES} ${SOURCE_FILES})
 add_executable(${TutorialName}  ${SOURCE_FILES})
-set_target_properties(${TutorialName} PROPERTIES FOLDER ${SAMPLE_DIRECTOPRY}/${API_NAME})
+set_target_properties(${TutorialName} PROPERTIES FOLDER ${API_NAME}/${SAMPLE_DIRECTOPRY})
 
 
 

@@ -4,10 +4,11 @@ getCurrentDirName(TutorialName)
 
 file(GLOB_RECURSE HEADER_FILES "*.h")
 file(GLOB_RECURSE SOURCE_FILES "*.cpp")
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${HEADER_FILES})
+# source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/HeaderFiles" FILES ${HEADER_FILES})
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCE_FILES})
-add_executable(${TutorialName}  ${HEADER_FILES} ${SOURCE_FILES})
-set_target_properties(${TutorialName} PROPERTIES FOLDER ${SAMPLE_DIRECTOPRY}/${API_NAME})
+# add_executable(TutorialName ${HEADER_FILES} ${SOURCE_FILES})
+add_executable(${TutorialName}  ${SOURCE_FILES})
+set_target_properties(${TutorialName} PROPERTIES FOLDER ${API_NAME}/${SAMPLE_DIRECTOPRY})
 
 
 
@@ -16,11 +17,6 @@ target_link_libraries(${TutorialName} PUBLIC glfw)
 add_dependencies(${TutorialName} glfw)
 add_dependencies(${TutorialName} glm)
 target_include_directories(  ${TutorialName} PUBLIC $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
-# target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
-# target_compile_definitions(${TutorialName} PUBLIC "/EHsc")
-IF(MSVC)
-    SET(CMAKE_CXX_FLAGS "/EHsc")
-ENDIF(MSVC)
 
 #添加vulkan
 find_package(Vulkan REQUIRED FATAL_ERROR)
