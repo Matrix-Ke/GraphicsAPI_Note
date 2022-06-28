@@ -7,3 +7,6 @@
 [submodule "ThirdParty/Glfw"]
 	path = ThirdParty/Glfw
 	url = git@github.com:glfw/glfw.git
+[submodule "CMake"]
+	path = CMake
+	url = git@github.com:Matrix-ke/CMakeInit.git
