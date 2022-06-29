@@ -45,3 +45,6 @@ bld/
 *.exe
 *.out
 *.app
+
+#compile shader
+*.spv
