@@ -70,12 +70,13 @@
     | :---: | :----: | ----: | :----: | :----: | :----: | :----: |
     |访问周期|	1	| 1~32	| 1~32	| 32~64	|400~600|	400~600| 
 2. GPU ConText和延迟
-    * context： GPU可以理解位需要执行任务单元的上下文，
-    * 在SM中，warp schedule调度sp执行任务时候，SP（core）需要访问纹理，缓存时候就会非常慢，这时候可以将正在执行的SP切换执行另外的任务。
-    * 在一个SM中利用多个Context可以有效提升SP运行效率。
+    * context： 
+        - GPU可以理解位需要执行任务单元的上下文，以Sp为基本单位，一个Sp中多个ALU共享一组Context。
+        - Context以Core为单位组成共享的结构，同一个Core的多个ALU共享一组Context：
+    * 在SM中，warp schedule调度sp执行任务时候，当Context需要访问纹理，缓存时候就会非常慢，这时候可以将SP正在执行的计算单元切换执行另外的任务。
+    * 在一个SM中SP利用多个Context可以有效提升SP运行效率。
     ![multiContext](./Image/multi_Context.png)
-    * Context以Core为单位组成共享的结构，同一个Core的多个ALU共享一组Context：
-    * 
+    
 3. GPU与CPU通信
     * 分离式架构： 采用PCIe
     * 耦合式： GPU和CPU共享内存和缓存？　
@@ -124,3 +125,4 @@
 ##### 参考文献: 
 * [1] [life-triangle-nvidias-logical-pipeline](https://developer.nvidia.com/content/life-triangle-nvidias-logical-pipeline)
 * [2] [A trip through the Graphics Pipeline](https://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/)
+* [3] [深入GPU硬件架构及运行机制](https://www.cnblogs.com/timlly/p/11471507.html)
