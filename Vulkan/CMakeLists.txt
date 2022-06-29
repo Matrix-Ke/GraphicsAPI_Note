@@ -1,3 +1,3 @@
 # =======================================添加子目录====================================
 set(API_NAME "Vulkan")
-fAdd_all_subdirectory()
+Add_all_subdirectory()
