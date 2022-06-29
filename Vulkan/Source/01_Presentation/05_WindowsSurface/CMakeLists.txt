@@ -1,6 +1,6 @@
 #===============================================寻找第三方库==========================================
 set(TutorialName  "")
-getCurrentDirName(TutorialName)
+GetCurrentDirectoryName(TutorialName)
 
 file(GLOB_RECURSE HEADER_FILES "*.h")
 file(GLOB_RECURSE SOURCE_FILES "*.cpp")

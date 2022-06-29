@@ -1,4 +1,4 @@
 set(SAMPLE_DIRECTOPRY "")
-getCurrentDirName(SAMPLE_DIRECTOPRY)
+GetCurrentDirectoryName(SAMPLE_DIRECTOPRY)
 
-fAdd_all_subdirectory()
+Add_all_subdirectory()
