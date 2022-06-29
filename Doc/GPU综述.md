@@ -1,25 +1,23 @@
-# 深入探索GPU
+# 深入探索GPU图形架构
 ### 图形流水线
-1. 帧缓存（framebuffer）:
-    * 在内存， 这块内存的区域和显示器的每个像素是一一对应的。现代计算机适合4字节对齐（32bit，对应一个像素）
-    * 早期显卡： 把帧缓存的内容输出到显示器
-    * 增加各种PU单元，执行shader， eg：输入装配单元
-    ![inputAssembler](./Image/InputAssembler.png)     
-2. GPU所有功能单元：
-    * ![logicalUnit](./Image/LogicalUnit.png)
-3. 图形流水单元
-    * 图形流水线：
-    ![pipeline](./Image/Pipeline.png)
-4. Pipeline Architecture Image
+1. Pipeline Architecture Image
     * fermipipeline
     ![fermipipeline](./Image/fermipipeline.png)
-    * Ampere GPU Architecture
-    ![AmpereArchitect](./Image/AmpereArchitecture.png)
+    <!-- * Ampere GPU Architecture -->
+    <!-- ![AmpereArchitect](./Image/AmpereArchitecture.png) -->
+4. GPU所有功能单元：
+    * ![logicalUnit](./Image/LogicalUnit.png)
+1. 图形流水单元
+    * 图形流水线：
+    ![pipeline](./Image/Pipeline.png)
+3. 帧缓存（framebuffer）:
+    * 在内存， 这块内存的区域和显示器的每个像素是一一对应的。现代计算机适合4字节对齐（32bit，对应一个像素）
+    * 早期显卡： 把帧缓存的内容输出到显示器 
 
 ### GPU逻辑模块划分 
 1. GPU Logical Architecture 
-    * Architecture In-Depth：
-    ![logical](./Image/LogicalGrapicPipeline.png)
+    * 逻辑流水线概览：
+    ![logicalGraphicsPipeline](./Image/LogicalGraphicsPipeline.png)
     
 2. Giga Thread Engine： 管理引擎
     * 管理GPU工作，负责最上层的任务调度
@@ -71,8 +69,18 @@
     |存储类型	|寄存器|	共享内存|	L1缓存	|L2缓存|	纹理、常量缓存|	全局内存|
     | :---: | :----: | ----: | :----: | :----: | :----: | :----: |
     |访问周期|	1	| 1~32	| 1~32	| 32~64	|400~600|	400~600| 
-    
-
+2. GPU ConText和延迟
+    * context： GPU可以理解位需要执行任务单元的上下文，
+    * 在SM中，warp schedule调度sp执行任务时候，SP（core）需要访问纹理，缓存时候就会非常慢，这时候可以将正在执行的SP切换执行另外的任务。
+    * 在一个SM中利用多个Context可以有效提升SP运行效率。
+    ![multiContext](./Image/multi_Context.png)
+    * Context以Core为单位组成共享的结构，同一个Core的多个ALU共享一组Context：
+    * 
+3. GPU与CPU通信
+    * 分离式架构： 采用PCIe
+    * 耦合式： GPU和CPU共享内存和缓存？　
+    * MMIO（Memory Mapped IO）
+    ![MMIO](./Image/MMIO.png)
 
 ### 图形流水线的不可编程单元
 1. 广义光栅化器：PrimitiveAssembler + Rasterizer
