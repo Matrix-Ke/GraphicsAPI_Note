@@ -2,6 +2,11 @@
 set(TutorialName  "")
 GetCurrentDirectoryName(TutorialName)
 
+# 开启异常处理编译选项
+IF(MSVC)
+    SET(CMAKE_CXX_FLAGS "/EHsc") 
+ENDIF(MSVC)
+
 file(GLOB_RECURSE HEADER_FILES "*.h")
 file(GLOB_RECURSE SOURCE_FILES "*.cpp")
 file (GLOB_RECURSE SHADER_SOURCES ./*.vert ./*.frag)
@@ -13,20 +18,22 @@ set_target_properties(${TutorialName} PROPERTIES FOLDER ${ROOT_FOLDER_NAME}/${SA
 
 
 
-target_link_libraries(${TutorialName} PUBLIC glm)
-target_link_libraries(${TutorialName} PUBLIC glfw)
+target_link_libraries(${TutorialName} PRIVATE glm)
+target_link_libraries(${TutorialName} PRIVATE glfw)
+target_link_libraries(${TutorialName} PRIVATE  BasicTool::Platform)
+target_link_libraries(${TutorialName} PRIVATE ${Vulkan_LIBRARIES})#添加vulkan
+
 add_dependencies(${TutorialName} glfw)
 add_dependencies(${TutorialName} glm)
-target_include_directories(  ${TutorialName} PUBLIC $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
-# target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
-# target_compile_definitions(${TutorialName} PUBLIC "/EHsc")
-IF(MSVC)
-    SET(CMAKE_CXX_FLAGS "/EHsc")
-ENDIF(MSVC)
+add_dependencies(${TutorialName}  BasicTool::Platform)
 
-#添加vulkan
-target_link_libraries(${TutorialName} PUBLIC ${Vulkan_LIBRARIES})
-target_include_directories(${TutorialName}  PUBLIC ${Vulkan_INCLUDE_DIRS}  )
+target_include_directories( ${TutorialName} PRIVATE $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
+target_include_directories(${TutorialName} PRIVATE $<BUILD_INTERFACE:${BASICTOOL_INCLUDE_DIRS}> )
+target_include_directories(${TutorialName}  PRIVATE ${Vulkan_INCLUDE_DIRS} )
+
+
+target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
+
 
 #构建编译shader程序
 set(Shader_Program  ${TutorialName}_ShaderProgram )
