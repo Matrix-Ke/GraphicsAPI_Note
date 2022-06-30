@@ -11,7 +11,7 @@
 	path = CMake
 	url = git@github.com:Matrix-ke/CMakeInit.git
 [submodule "BasicTool"]
-	path = BasisTool
+	path = BasicTool
 	url = git@github.com:Matrix-Ke/MBasicTool.git
 	branch = master
 [submodule "ThirdParty/spdlog"]

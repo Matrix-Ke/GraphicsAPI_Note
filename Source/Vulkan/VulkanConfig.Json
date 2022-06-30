@@ -1,6 +1,7 @@
 {
     "ShaderPath":
     {
-        "Graphics_Pipeline" : "D:/GitDemo/GraphicsAPI_Note/Source/Vulkan/Source/02_GraphicsPipeline/08_Graphics_Pipeline/shader_base.vert"
+        "Graphics_Pipeline_VS" : "D:/GitDemo/GraphicsAPI_Note/Source/Vulkan/Source/02_GraphicsPipeline/08_Graphics_Pipeline/Shader/vert.spv",
+        "Graphics_Pipeline_PS" : "D:/GitDemo/GraphicsAPI_Note/Source/Vulkan/Source/02_GraphicsPipeline/08_Graphics_Pipeline/Shader/frag.spv"
     }
 }
