@@ -1,1 +1,6 @@
-{"name":"v1", "k2":42, "k3":["a",123,true,false,null]}
+{
+    "ShaderPath":
+    {
+        "Graphics_Pipeline" : "D:/GitDemo/GraphicsAPI_Note/Source/Vulkan/Source/02_GraphicsPipeline/08_Graphics_Pipeline/shader_base.vert"
+    }
+}
