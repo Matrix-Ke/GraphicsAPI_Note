@@ -20,12 +20,14 @@ set_target_properties(${TutorialName} PROPERTIES FOLDER ${ROOT_FOLDER_NAME}/${SA
 
 target_link_libraries(${TutorialName} PRIVATE glm)
 target_link_libraries(${TutorialName} PRIVATE glfw)
+target_link_libraries(${TutorialName} PRIVATE spdlog)
 target_link_libraries(${TutorialName} PRIVATE  BasicTool::Platform)
 target_link_libraries(${TutorialName} PRIVATE ${Vulkan_LIBRARIES})#添加vulkan
 target_link_libraries(${TutorialName}  PRIVATE  json11)
 add_dependencies(${TutorialName} glfw)
 add_dependencies(${TutorialName} glm)
 add_dependencies(${TutorialName}  BasicTool::Platform)
+add_dependencies(${TutorialName} spdlog)
 
 target_include_directories( ${TutorialName} PRIVATE $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
 target_include_directories(${TutorialName} PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/BasicTool> )

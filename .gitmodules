@@ -18,3 +18,7 @@
 	path = ThirdParty/Json11
 	url = git@github.com:Matrix-Ke/json11.git
 	branch = master
+[submodule "ThirdParty/spdlog"]
+	path = ThirdParty/spdlog
+	url = git@github.com:gabime/spdlog.git
+	branch = v1.x
