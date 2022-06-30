@@ -10,7 +10,7 @@
 [submodule "CMake"]
 	path = CMake
 	url = git@github.com:Matrix-ke/CMakeInit.git
-[submodule "BasisTool"]
+[submodule "BasicTool"]
 	path = BasisTool
 	url = git@github.com:Matrix-Ke/MBasicTool.git
 	branch = master

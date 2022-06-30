@@ -23,6 +23,6 @@ endif()
 
 
 # =======================================添加子目录====================================
-add_subdirectory(BasisTool)
+add_subdirectory(BasicTool)
 add_subdirectory(Source)
 add_subdirectory(ThirdParty)
