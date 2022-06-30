@@ -23,7 +23,6 @@ target_link_libraries(${TutorialName} PRIVATE glfw)
 target_link_libraries(${TutorialName} PRIVATE spdlog)
 target_link_libraries(${TutorialName} PRIVATE  BasicTool::Platform)
 target_link_libraries(${TutorialName} PRIVATE ${Vulkan_LIBRARIES})#添加vulkan
-target_link_libraries(${TutorialName}  PRIVATE  json11)
 add_dependencies(${TutorialName} glfw)
 add_dependencies(${TutorialName} glm)
 add_dependencies(${TutorialName}  BasicTool::Platform)
@@ -32,6 +31,7 @@ add_dependencies(${TutorialName} spdlog)
 target_include_directories( ${TutorialName} PRIVATE $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
 target_include_directories(${TutorialName} PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/BasicTool> )
 target_include_directories(${TutorialName}  PRIVATE ${Vulkan_INCLUDE_DIRS} )
+target_include_directories(${TutorialName} PRIVATE ${THIRD_PARTY_DIR}/rapidjson/include)
 
 
 target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
