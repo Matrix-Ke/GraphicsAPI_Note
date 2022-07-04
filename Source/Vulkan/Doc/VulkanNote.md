@@ -19,3 +19,4 @@
 * **VkImageView** object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
 * **VkFramebuffer** binds a VkImageView with an attachment.
 * **VkRenderpass** defines which attachment will be drawn into
+* [renderTarget](./Image/VulkanRenderTarget.png)
