@@ -10,3 +10,15 @@
 [submodule "CMake"]
 	path = CMake
 	url = git@github.com:Matrix-ke/CMakeInit.git
+[submodule "BasicTool"]
+	path = BasicTool
+	url = git@github.com:Matrix-Ke/MBasicTool.git
+	branch = master
+[submodule "ThirdParty/spdlog"]
+	path = ThirdParty/spdlog
+	url = git@github.com:gabime/spdlog.git
+	branch = v1.x
+[submodule "ThirdParty/rapidjson"]
+	path = ThirdParty/rapidjson
+	url = git@github.com:Matrix-Ke/rapidjson.git
+	branch = master

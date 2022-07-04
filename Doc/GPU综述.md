@@ -94,8 +94,8 @@
     * 实际光栅化输出是一个2x2像素的一个quad
     * 立即式光栅化： PC端，逐像素,频繁读写，能耗高
     * tiled based： 移动端。
-        * 每个tile 包含一个列表，保存所有和tile相交的三角形一起处理。
-        * 需要有片上内存充当cache： 把render target对应的区域载入cache建立映射，CliipMemory比GPU内存要快的多，且省电
+        * 需要有tile上拥有 clip memory充当cache： 把render target对应的区域载入cache建立映射，CliipMemory比GPU内存要快的多，且省电
+        * 每个tile 包含一个列表，保存所有和tile相交的三角形一起经过光栅化处理，处理完毕后写入rendertaget。
         * 在像素着色器中，会将相邻的四个像素作为不可分隔的一组，送入同一个SM内4个不同的Core
             - 优点： 加速像素分派工作，降低schedule任务。
             - 缺点： 对于小的三角形（占比小于四个像素），会造成over draw。
