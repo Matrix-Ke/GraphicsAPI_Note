@@ -14,8 +14,8 @@
 
 
 ### vulkan名词理解： 
-* VkMemory is just a sequence of N bytes in memory. 
-* VkImage object adds to it e.g. information about the format (so you can address by texels, not bytes).
-* VkImageView object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
-* VkFramebuffer binds a VkImageView with an attachment.
-* VkRenderpass defines which attachment will be drawn into
+* **VkMemory** is just a sequence of N bytes in memory. 
+* **VkImage** object adds to it e.g. information about the format (so you can address by texels, not bytes).
+* **VkImageView** object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
+* **VkFramebuffer** binds a VkImageView with an attachment.
+* **VkRenderpass** defines which attachment will be drawn into
