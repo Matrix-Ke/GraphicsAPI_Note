@@ -32,5 +32,22 @@ if(NOT TARGET tinyobjloader)
     set_target_properties(uninstall PROPERTIES FOLDER ${third_party_folder}/tinyobjloader)
 endif()
 
+if(NOT TARGET rapidjson)
+    option(RAPIDJSON_BUILD_DOC "Build rapidjson documentation." OFF)
+    option(RAPIDJSON_BUILD_EXAMPLES "Build rapidjson examples." OFF)
+    option(RAPIDJSON_BUILD_TESTS "Build rapidjson perftests and unittests." OFF)
+    option(RAPIDJSON_BUILD_THIRDPARTY_GTEST "Use gtest installation in `thirdparty/gtest` by default if available" OFF)
+    CMAKE_MINIMUM_REQUIRED(VERSION 2.8...3.14)
+    add_subdirectory(rapidjson)
+    # rapidjson 只有头文件
+    # set_target_properties(rapidjson PROPERTIES FOLDER ${third_party_folder}/json11)
+endif()
 
-# Add_all_subdirectory()
+if(NOT TARGET spdlog)
+    option(SPDLOG_BUILD_EXAMPLE "" OFF)
+    option(SPDLOG_INSTALL "" OFF)
+    add_subdirectory(spdlog)
+    set_target_properties(spdlog PROPERTIES FOLDER ${third_party_folder}/spdlog)
+    target_compile_options(spdlog PRIVATE /EHsc)
+endif()
+
