@@ -40,6 +40,7 @@ target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
 
 
 #构建编译shader程序
-set(Shader_Program  ${TutorialName}_ShaderProgram )
+set(Shader_Program  ${TutorialName}_ShaderProgram ) 
+# message(STATUS TARGET_OUTPUT_NAME = ${TutorialName})
 add_shaders_target(${Shader_Program}  OUTPUT_DIR  ${CMAKE_CURRENT_SOURCE_DIR}   SOURCES ${SHADER_SOURCES} )
 set_target_properties(${Shader_Program} PROPERTIES FOLDER  ${ROOT_FOLDER_NAME}/${SAMPLE_DIRECTOPRY})
