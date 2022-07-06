@@ -22,10 +22,12 @@ target_link_libraries(${TutorialName} PRIVATE glm)
 target_link_libraries(${TutorialName} PRIVATE glfw)
 target_link_libraries(${TutorialName} PRIVATE spdlog)
 target_link_libraries(${TutorialName} PRIVATE  BasicTool::Platform)
+target_link_libraries(${TutorialName} PRIVATE  BasicTool::Container)
 target_link_libraries(${TutorialName} PRIVATE ${Vulkan_LIBRARIES})#添加vulkan
 add_dependencies(${TutorialName} glfw)
 add_dependencies(${TutorialName} glm)
 add_dependencies(${TutorialName}  BasicTool::Platform)
+add_dependencies(${TutorialName}  BasicTool::Container)
 add_dependencies(${TutorialName} spdlog)
 
 target_include_directories( ${TutorialName} PRIVATE $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
@@ -39,5 +41,5 @@ target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
 
 #构建编译shader程序
 set(Shader_Program  ${TutorialName}_ShaderProgram )
-add_shaders_target(${Shader_Program}  SHADER_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}"  SOURCES "${SHADER_SOURCES}" )
+add_shaders_target(${Shader_Program}  OUTPUT_DIR  ${CMAKE_CURRENT_SOURCE_DIR}   SOURCES ${SHADER_SOURCES} )
 set_target_properties(${Shader_Program} PROPERTIES FOLDER  ${ROOT_FOLDER_NAME}/${SAMPLE_DIRECTOPRY})
