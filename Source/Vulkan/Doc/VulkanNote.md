@@ -25,12 +25,16 @@
     3. 使用vkGetFenceStatus轮询
 * semaphore信号量：
     1. GPU内部命令之间的同步
-
+* swapchain :
+    1. surface的基本兼容性（交换链支持的最小最大图像数量， 最小最大宽高）
+    2. 表面格式 （像素格式，色彩空间）
+    3. 可用的显示模式 : 显示模式是交换链最重要的设置项，因为它决定了如何把图像显示到屏幕上: 1. 立即模式 2.队列排对刷新（双缓冲）3.不等待上一个，直接将渲染好的而图像显示大屏幕，会撕裂画面 4.不阻塞，直接用新的代替队列中的图像
+    4. [swapchain](./Image/SwapChain.jpg)
 
 ### vulkan名词理解： 
 * **VkMemory** is just a sequence of N bytes in memory. 
 * **VkImage** object adds to it e.g. information about the format (so you can address by texels, not bytes).
-* **VkImageView** object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
+* **VkImageView** 本质就是对vkImage的一个封装，提供一些访问接口。object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
 * **VkFramebuffer** binds a VkImageView with an attachment.
 * **VkRenderpass** defines which attachment will be drawn into
 * [renderTarget](./Image/VulkanRenderTarget.png)
