@@ -19,6 +19,8 @@
     | vkSubmitInfo|  vkQueueSubmit一次提交多个vksubmitInfo按照此数组的下标顺序 |
     | vkSubmitInfo|  填入的多个CommandBuffer，按照自己数组下标顺序 |
     | CommandBuffer | 1.不在renderPass中的命令，这些命令的提交顺序为按照在CPU上写入的顺序； 2.subpass 提交顺序按照写入顺序，但是在renderpass不存在任何提交顺序 |
+* vkQueueWaitIdle()函数同步：
+    1. 用于CPU与GPU之间。
 * Fence 同步：
     1. Fence用于CPU和GPU之间的同步， 它有两种状态——signaled和unsignaled
     2.  vkWaitForFences会让CPU在当前位置被阻塞掉，然后一直等待到它接受的Fence变为signaled的状态
