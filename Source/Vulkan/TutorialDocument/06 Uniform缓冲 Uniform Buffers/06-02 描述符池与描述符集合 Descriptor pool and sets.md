@@ -46,7 +46,7 @@ if (vkCreateDescriptorPool(device, &poolInfo, nullptr,
 				&descriptorPool) != VK_SUCCESS) {
 	throw std::runtime_error("failed to create descriptor pool!");
 }
-我们添加了一个新的类成员变量来存储使用vkCreateDescriptorPool函数创建的描述符池对象。应用程序退出前，我们需要清除我们创建的描述符池对象：
+// 我们添加了一个新的类成员变量来存储使用vkCreateDescriptorPool函数创建的描述符池对象。应用程序退出前，我们需要清除我们创建的描述符池对象：
 
 void cleanup() {
 	cleanupSwapChain();
