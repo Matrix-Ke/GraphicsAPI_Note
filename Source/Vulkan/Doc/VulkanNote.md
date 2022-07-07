@@ -8,6 +8,15 @@
 ### 视频资源
 * [Vulkan Game Engine Tutorial](https://youtu.be/Y9U9IE0gVHA): 讲解的非常好，非常推荐。
 
+## 坐标系
+* OpenGl：
+    1. 采用右手坐标系
+    2. 标准设备坐标系：[-1, 1]
+    3. 深度缓冲值：[0,1]
+* vulkan： 
+    1. 左手坐标系
+    2. 标准化设备坐标是把一种帧缓冲映射到[-1, 1]到[-1, 1]
+    3. 深度缓冲值：[minDepth, maxDepth] (由自己定义)
 
 ## vulkan核心概念理解
 * 多线程部分[Multi-Threading in Vulkan](https://community.arm.com/arm-community-blogs/b/graphics-gaming-and-vr-blog/posts/multi-threading-in-vulkan)
@@ -30,8 +39,8 @@
 * swapchain :
     1. surface的基本兼容性（交换链支持的最小最大图像数量， 最小最大宽高）
     2. 表面格式 （像素格式，色彩空间）
-    3. 可用的显示模式 : 显示模式是交换链最重要的设置项，因为它决定了如何把图像显示到屏幕上: 1. 立即模式 2.队列排对刷新（双缓冲）3.不等待上一个，直接将渲染好的而图像显示大屏幕，会撕裂画面 4.不阻塞，直接用新的代替队列中的图像
-    4. [swapchain](./Image/SwapChain.jpg)
+    3. 显示模式 : 显示模式是交换链最重要的设置项，因为它决定了如何把图像显示到屏幕上: 1. 立即模式 2.队列排对刷新（双缓冲）3.不等待上一个，直接将渲染好的而图像显示大屏幕，会撕裂画面 4.不阻塞，直接用新的代替队列中的图像
+    4. [![](./Image/SwapChain.jpg)](https://vulkan.lunarg.com/doc/view/1.2.154.1/windows/tutorial/html/12-init_frame_buffers.html)
 
 ### vulkan名词理解： 
 * **VkMemory** is just a sequence of N bytes in memory. 

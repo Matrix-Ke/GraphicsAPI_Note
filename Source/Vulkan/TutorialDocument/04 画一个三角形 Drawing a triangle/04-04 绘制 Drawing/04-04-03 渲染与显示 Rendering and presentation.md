@@ -230,11 +230,11 @@ vkQueuePresentKHR(presentQueue, &presentInfo);
 
 如果目前为止你做对了所有事情，那么当运行程序时，你应该看到类似下面的东西：
 
-![](https://vulkan-tutorial.com/images/triangle.png)
+![](./../../images/triangle.png)
 
 耶！不幸的是，你会看到当验证层开启的时候，程序会在你关闭它的时候崩溃。`debugCallback`打印到终端上的信息告诉了我们原因：
 
-![](https://vulkan-tutorial.com/images/semaphore_in_use.png)
+![](./../../images/semaphore_in_use.png)
 
 记住，所有`drawFrame`中的操作都是异步的。这意味着当我们退出`mainLoop`中的循环时，渲染和显示操作依然有可能会继续。在这些操作正在进行的时候清除所有资源不是什么好主意。
 
@@ -430,7 +430,7 @@ void drawFrame() {
 
 如果你现在运行程序，你会发现有些奇怪。这个程序看起来没有绘制任何东西。开启了验证层的话，你会看到如下消息：
 
-![](https://vulkan-tutorial.com/images/unsubmitted_fence.png)
+![](./../../images/unsubmitted_fence.png)
 
 这意味着我们正在等待一个没有被提交的屏障。出现这个问题是因为，在默认情况下，新建的屏障是处于无信号状态的。这意味着如果我们之前没有使用过这个屏障的话，[`vkWaitForFences`](https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkWaitForFences.html)会一直等待下去。为解决这个问题，我们可以更改屏障的创建过程，来把新建的屏障初始化为有信号状态的，就好像我们已经渲染了一个初始帧：
 

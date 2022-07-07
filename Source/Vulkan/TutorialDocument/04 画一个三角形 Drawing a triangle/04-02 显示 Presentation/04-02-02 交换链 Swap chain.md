@@ -410,7 +410,7 @@ void cleanup() {
 
 尝试在开启验证层的同时删除`createInfo.imageExtent = extent;`这行。你会看到有一个验证层立刻捕获了错误并且给出了有用的提示信息：
 
-![](https://vulkan-tutorial.com/images/swap_chain_validation_layer.png)
+![](./../../images/swap_chain_validation_layer.png)
 
 ## 取出交换链中的图像
 

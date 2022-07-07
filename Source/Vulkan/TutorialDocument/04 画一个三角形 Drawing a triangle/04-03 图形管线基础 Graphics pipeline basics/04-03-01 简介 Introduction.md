@@ -2,7 +2,7 @@
 
 通过接下来几章的课程，我们会建立一个图形渲染管线来绘制我们的第一个三角形。图形渲染管线就是一步一步地把你的顶点和纹理变成渲染目标上的像素的一系列操作。下面是它的简要图示：
 
-![](https://vulkan-tutorial.com/images/vulkan_simplified_pipeline.svg)
+![](./../../images/vulkan_simplified_pipeline.svg)
 
 “输入装配器”（input assembler）从指定的缓存中收集原生的顶点数据，并可能使用一个顶点缓冲来重复某些元素，而不是重复顶点本身。
 

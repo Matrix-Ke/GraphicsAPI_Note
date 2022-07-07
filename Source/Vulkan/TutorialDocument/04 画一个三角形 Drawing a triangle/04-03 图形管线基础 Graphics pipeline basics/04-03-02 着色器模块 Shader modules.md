@@ -16,7 +16,7 @@ GLSL是一种C风格语法的着色器语言。写在`main`函数中的程序会
 
 裁剪坐标（clip coordinate）是一个顶点着色器生成的四维向量，随后它会用它的最后一个分量除以整个向量来转换成“标准化设备坐标”（normalized device coordinate）。这些标准化设备坐标是把一种帧缓冲映射到[-1, 1]到[-1, 1]坐标系统的齐次坐标，如下图所示：
 
-![](https://vulkan-tutorial.com/images/normalized_device_coordinates.svg)
+![](./../../images/normalized_device_coordinates.svg)
 
 *Framebuffer coordinates：帧缓冲坐标*
 
@@ -26,7 +26,7 @@ GLSL是一种C风格语法的着色器语言。写在`main`函数中的程序会
 
 对于我们的第一个三角形而言，我们不需要应用任何变换，我们仅仅会直接以标准化设备坐标指定三个顶点的位置来创建如下所示的形状：
 
-![](https://vulkan-tutorial.com/images/triangle_coordinates.svg)
+![](./../../images/triangle_coordinates.svg)
 
 我们可以通过把顶点着色器输出的裁剪坐标的最后一个分量设为`1`的方式来直接输出标准化设备坐标。这样在执行把裁剪坐标转换为标准化设备坐标的除法时将不会发生任何变化。
 
@@ -69,7 +69,7 @@ void main() {
 
 把整个三角形都设置为红色不好玩，下面这种是不是更好一点？
 
-![](https://vulkan-tutorial.com/images/triangle_coordinates_colors.png)
+![](./../../images/triangle_coordinates_colors.png)
 
 我们需要对两个着色器做一系列改动才能实现这个。首先，我们需要为每个顶点指定一个不同的颜色。顶点着色器现在应该包含一个颜色数组，就像位置数组那样：
 

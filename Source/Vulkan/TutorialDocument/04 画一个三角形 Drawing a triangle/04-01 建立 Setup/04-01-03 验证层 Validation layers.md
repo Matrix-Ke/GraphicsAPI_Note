@@ -262,7 +262,7 @@ if (CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &callback) != V
 
 倒数第二个参数依然是那个被我们设置成`nullptr`的可选的分配器回调函数，其余的参数含义都很明了。由于调试回调函数特定于我们的Vulkan实例和它的验证层，它们需要被显式设置为第一个参数。一会你还会看到这种模式用在其它“子”对象上。让我们看看它是否正常工作……运行程序，然后在你看腻了那个空白窗口之后关掉它。你应该看到如下消息被打印在命令提示符上：
 
-![](https://vulkan-tutorial.com/images/validation_layer_test.png)
+![](./../../images/validation_layer_test.png)
 
 哎呀，在我们的程序中已经发现了一个bug！`VkDebugUtilsMessengerEXT`对象需要被`vkDestroyDebugUtilsMessengerEXT`函数清除。与`vkCreateDebugUtilsMessengerEXT` 类似，这个函数需要被显式加载。注意一下，消息被打印很多是正常的，因为有复数个验证层在检查调试messenger是否被删除。
 
