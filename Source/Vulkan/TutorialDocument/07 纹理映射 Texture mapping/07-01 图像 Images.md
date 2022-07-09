@@ -411,7 +411,7 @@ transitionImageLayout(textureImage, VK_FORMAT_R8G8B8A8_UNORM,
 			VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 ```
 
-## 变换屏障掩码
+## 变换屏障掩码(Transition barrier masks)
 如果读者在开启校验层的情况下运行程序，会发现校验层报告transitionImageLayout中使用的访问掩码和管线阶段是无效的。我们需要根据布局变换设置transitionImageLayout。
 
 我们需要处理两种变换：
