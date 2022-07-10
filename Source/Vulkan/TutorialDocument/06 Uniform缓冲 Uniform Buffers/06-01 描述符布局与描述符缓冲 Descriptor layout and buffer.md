@@ -93,7 +93,7 @@ void createDescriptorSetLayout() {
 	uboLayoutBinding.descriptorCount = 1;
 }
 ```
-
+The first two fields specify the `binding` used in the shader and the type of descriptor, which is a uniform buffer object. It is possible for the shader variable to represent an array of uniform buffer objects, and `descriptorCount` specifies the number of values in the array. This could be used to specify a transformation for each of the bones in a skeleton for skeletal animation, for example. Our MVP transformation is in a single uniform buffer object, so we're using a `descriptorCount` of `1`.
 binding和descriptorType成员变量用于指定着色器使用的描述符绑定和描述符类型。这里我们指定的是一个uniform缓冲对象。着色器变量可以用来表示uniform缓冲对象数组，descriptorCount成员变量用来指定数组中元素的个数。我们可以使用数组来指定骨骼动画使用的所有变换矩阵。在这里，我们的MVP矩阵只需要一个uniform缓冲对象，所以我们将descriptorCount的值设置为1。
 ```c++
 uboLayoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;

@@ -1,7 +1,9 @@
 # vulkan 学习路线
 ## 博客文章
 * 学习[官方推荐教程vulkan-tutorial](https://vulkan-tutorial.com/) : 本项目代码就是根据这教程实现的
+* [Welcome to VulkanGuide](https://vkguide.dev/)  图文并茂，语言精简
 * [中文学习笔记](https://gavinkg.github.io/ILearnVulkanFromScratch-CN/)
+* [如何]
 * [understanding-vulkan-objects](https://gpuopen.com/learn/understanding-vulkan-objects/)
 * ![vulkanDiagram图片](./Image/Vulkan-Diagram.png)
 
