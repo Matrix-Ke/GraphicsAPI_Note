@@ -57,3 +57,7 @@
     4. **VkFramebuffer** binds a VkImageView with an attachment.
     5. **VkRenderpass** defines which attachment will be drawn into
 * [renderTarget](./Image/VulkanRenderTarget.png)
+
+## Descriptor Set 
+* **descriptorLayout**: 主要用来约束descriptrSet对象有多少Buffer和image，用于创建DescrioptorSet的信息。
+* **descriptorSet**: 必须要通过vkUpdateDescriptorSets()函数，将descriptor和实际的buffer数据关联起来。 descriptor其实就是实际buffer或者image的指针，但是无法独立存在，必须依附于descriptorSet。 
