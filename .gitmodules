@@ -22,3 +22,11 @@
 	path = ThirdParty/rapidjson
 	url = git@github.com:Matrix-Ke/rapidjson.git
 	branch = master
+[submodule "ThirdParty/stb"]
+	path = ThirdParty/stb
+	url = git@github.com:nothings/stb.git
+	branch = master
+[submodule "ThirdParty/imgui"]
+	path = ThirdParty/imgui
+	url = git@github.com:ocornut/imgui.git
+	branch = master

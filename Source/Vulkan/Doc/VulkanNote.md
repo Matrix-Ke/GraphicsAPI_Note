@@ -1,6 +1,9 @@
 # vulkan 学习路线
 ## 博客文章
 * 学习[官方推荐教程vulkan-tutorial](https://vulkan-tutorial.com/) : 本项目代码就是根据这教程实现的
+* [Welcome to VulkanGuide](https://vkguide.dev/)  图文并茂，语言精简
+* [中文学习笔记](https://gavinkg.github.io/ILearnVulkanFromScratch-CN/)
+* [如何]
 * [understanding-vulkan-objects](https://gpuopen.com/learn/understanding-vulkan-objects/)
 * ![vulkanDiagram图片](./Image/Vulkan-Diagram.png)
 
@@ -42,10 +45,15 @@
     3. 显示模式 : 显示模式是交换链最重要的设置项，因为它决定了如何把图像显示到屏幕上: 1. 立即模式 2.队列排对刷新（双缓冲）3.不等待上一个，直接将渲染好的而图像显示大屏幕，会撕裂画面 4.不阻塞，直接用新的代替队列中的图像
     4. [![](./Image/SwapChain.jpg)](https://vulkan.lunarg.com/doc/view/1.2.154.1/windows/tutorial/html/12-init_frame_buffers.html)
 
-### vulkan名词理解： 
-* **VkMemory** is just a sequence of N bytes in memory. 
-* **VkImage** object adds to it e.g. information about the format (so you can address by texels, not bytes).
-* **VkImageView** 本质就是对vkImage的一个封装，提供一些访问接口。object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
-* **VkFramebuffer** binds a VkImageView with an attachment.
-* **VkRenderpass** defines which attachment will be drawn into
+
+## 纹理
+* [图像布局和排列 Image Layout & Tiling](./ImageLayout_Tiling.md)
+
+## vulkan对象
+* vulkan Image vs Framebuffer vs swapchain:
+    1. **VkMemory** is just a sequence of N bytes in memory. 
+    2. **VkImage** object adds to it e.g. information about the format (so you can address by texels, not bytes).
+    3. **VkImageView** 本质就是对vkImage的一个封装，提供一些访问接口。object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
+    4. **VkFramebuffer** binds a VkImageView with an attachment.
+    5. **VkRenderpass** defines which attachment will be drawn into
 * [renderTarget](./Image/VulkanRenderTarget.png)
