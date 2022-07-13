@@ -16,8 +16,11 @@ target_link_libraries(${TutorialName} PUBLIC glfw)
 add_dependencies(${TutorialName} glfw)
 add_dependencies(${TutorialName} glm)
 target_include_directories(  ${TutorialName} PUBLIC $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
-# target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
-# target_compile_definitions(${TutorialName} PUBLIC "/EHsc")
+
+if(USE_UNICODE)
+    target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
+endif()
+
 IF(MSVC)
     SET(CMAKE_CXX_FLAGS "/EHsc")
 ENDIF(MSVC)

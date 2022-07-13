@@ -11,9 +11,7 @@ set(THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty")
 
 set(USE_UNICODE FALSE)
 
-if(USE_UNICODE)
-    target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
- endif()
+
 
 #=======================include CMake===============
 if(NOT SetupProject_FOUND)
