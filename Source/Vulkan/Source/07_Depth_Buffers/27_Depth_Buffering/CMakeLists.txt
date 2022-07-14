@@ -37,7 +37,9 @@ target_include_directories(${TutorialName}  PRIVATE ${Vulkan_INCLUDE_DIRS} )
 target_include_directories(${TutorialName} PRIVATE ${THIRD_PARTY_DIR}/rapidjson/include)
 
 
-target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
+if(${USE_UNICODE})
+    target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
+endif()
 
 
 #构建编译shader程序

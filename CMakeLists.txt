@@ -5,9 +5,13 @@ set(PROJECT_NAME "GraphicsAPI_Tutorial")
 set(PROJECT_VERSION 1.0.0)
 Project(${PROJECT_NAME} LANGUAGES CXX VERSION ${PROJECT_VERSION})
 message(STATUS "Version: ${PROJECT_VERSION}")
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)# 设置Include路径
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/CMake)# 设置Include路径
 #设置第三方库路径
 set(THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty")
+
+set(USE_UNICODE FALSE)
+set(USE_BASICTOOL_SAMPLE FALSE)
+
 
 #=======================include CMake===============
 if(NOT SetupProject_FOUND)

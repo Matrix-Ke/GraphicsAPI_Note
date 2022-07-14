@@ -1,5 +1,5 @@
 # vulkan 学习路线
-## 博客文章
+### 博客文章
 * 学习[官方推荐教程vulkan-tutorial](https://vulkan-tutorial.com/) : 本项目代码就是根据这教程实现的
 * [Welcome to VulkanGuide](https://vkguide.dev/)  图文并茂，语言精简
 * [中文学习笔记](https://gavinkg.github.io/ILearnVulkanFromScratch-CN/)
@@ -21,7 +21,7 @@
     2. 标准化设备坐标是把一种帧缓冲映射到[-1, 1]到[-1, 1]
     3. 深度缓冲值：[minDepth, maxDepth] (由自己定义)
 
-## vulkan核心概念理解
+### vulkan核心概念理解
 * 多线程部分[Multi-Threading in Vulkan](https://community.arm.com/arm-community-blogs/b/graphics-gaming-and-vr-blog/posts/multi-threading-in-vulkan)
 * vulkan同步方案 [Yet another blog explaining Vulkan synchronization](https://themaister.net/blog/2019/08/14/yet-another-blog-explaining-vulkan-synchronization/)
 * 提交顺序：commandBuffer——>  VkSubmitInfo   ----->  vkQueueSubmit ------> GPU 
@@ -47,8 +47,19 @@
 
 
 ## 纹理
-* [图像布局和排列 Image Layout & Tiling](./ImageLayout_Tiling.md)
-
+* 创建可被Shader读取的texture过程：
+*   | createBuffer |  createImage | copyBufferToImage| 
+    | :---| :--- | :--- |
+    | 创建vkBuffer| 创建vkImage | 从vkBuffer拷贝图形数据到vkImage|
+* Pipeline Barrier(image memory barrier):
+    1. 用于imageLayout转换：
+        | Format\detail | layout | access Mask| Stage|
+        |:--- | :--- | :--- |:---- |
+        |临时vkBuffer | VK_IMAGE_LAYOUT_UNDEFINED | 初始状态也不关心VK_IMAGE_LAYOUT_UNDEFINED | VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT无需等待 |
+        |图像vkImage| VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL  | 允许写入VK_ACCESS_TRANSFER_WRITE_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT传输阶段|
+        | shader read | VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL| shader读取VK_ACCESS_SHADER_READ_BIT | 片元着色VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT |
+* 为什么要做格式转化呢？
+    - [图像布局和排列 Image Layout & Tiling](./ImageLayout_Tiling.md)
 ## vulkan对象
 * vulkan Image vs Framebuffer vs swapchain:
     1. **VkMemory** is just a sequence of N bytes in memory. 
