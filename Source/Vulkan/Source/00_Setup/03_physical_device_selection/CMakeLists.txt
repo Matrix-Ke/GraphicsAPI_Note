@@ -17,7 +17,7 @@ add_dependencies(${TutorialName} glfw)
 add_dependencies(${TutorialName} glm)
 target_include_directories(  ${TutorialName} PUBLIC $<BUILD_INTERFACE:${THIRD_PARTY_DIR}/Glfw/include> )
 
-if(USE_UNICODE)
+if(${USE_UNICODE})
     target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
 endif()
 

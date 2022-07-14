@@ -41,7 +41,7 @@ target_include_directories(${TutorialName}  PRIVATE ${THIRD_PARTY_DIR}/rapidjson
 target_include_directories(${TutorialName}  PRIVATE ${THIRD_PARTY_DIR}/tinyobjloader)
 
 
-if(USE_UNICODE)
+if(${USE_UNICODE})
     target_compile_definitions(${TutorialName} PUBLIC "UNICODE; _UNICODE")
 endif()
 

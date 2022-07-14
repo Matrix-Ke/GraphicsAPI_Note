@@ -10,7 +10,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/CMake)# 设置Inc
 set(THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty")
 
 set(USE_UNICODE FALSE)
-
+set(USE_BASICTOOL_SAMPLE FALSE)
 
 
 #=======================include CMake===============
