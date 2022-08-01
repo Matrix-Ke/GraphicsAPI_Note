@@ -1,4 +1,4 @@
-# 深入探索GPU图形架构
+# 深入探索GPU图形架构笔记
 ### 图形流水线
 1. Pipeline Architecture Image
     * fermipipeline
@@ -122,7 +122,8 @@
 ###  光线跟踪流水线
 
 
-##### 参考文献: 
+##### 参考文章: 
 * [1] [life-triangle-nvidias-logical-pipeline](https://developer.nvidia.com/content/life-triangle-nvidias-logical-pipeline)
 * [2] [A trip through the Graphics Pipeline](https://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/)
 * [3] [深入GPU硬件架构及运行机制](https://www.cnblogs.com/timlly/p/11471507.html)
+* [4] [图形流水线基础](https://www.bilibili.com/video/BV1P44y1V7bu?share_source=copy_web&vd_source=e84f3d79efba7dc72e6306f35613222e)

@@ -3,7 +3,9 @@
     "Project_Resource_Dir": "D:/GitDemo/GraphicsAPI_Note/resources",
     "Object_Content":{
         "chalet_obj": "D:/GitDemo/GraphicsAPI_Note/resources/chalet.obj",
-        "chalet_Tex":"D:/GitDemo/GraphicsAPI_Note/resources/chalet.jpg"
+        "chalet_Tex":"D:/GitDemo/GraphicsAPI_Note/resources/chalet.jpg",
+        "Cube_obj": "D:/GitDemo/GraphicsAPI_Note/Model/cube/cube.obj",
+        "Cube_Tex":"D:/GitDemo/GraphicsAPI_Note/Model/cube/default.png"
     },
     "Vulkan_Source_Dir" : "D:/GitDemo/GraphicsAPI_Note/Source/Vulkan/Source",
     "Graphics_Pipeline":

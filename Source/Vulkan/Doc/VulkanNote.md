@@ -3,9 +3,9 @@
 * 学习[官方推荐教程vulkan-tutorial](https://vulkan-tutorial.com/) : 本项目代码就是根据这教程实现的
 * [Welcome to VulkanGuide](https://vkguide.dev/)  图文并茂，语言精简
 * [中文学习笔记](https://gavinkg.github.io/ILearnVulkanFromScratch-CN/)
-* [如何]
 * [understanding-vulkan-objects](https://gpuopen.com/learn/understanding-vulkan-objects/)
 * ![vulkanDiagram图片](./Image/Vulkan-Diagram.png)
+* [![如何正确的入门Vulkan](./Image/Vulkan_Object.jpg)](https://www.zhihu.com/question/424430509/answer/1632072443)
 
 
 ### 视频资源
@@ -67,6 +67,7 @@
     3. **VkImageView** 本质就是对vkImage的一个封装，提供一些访问接口。object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
     4. **VkFramebuffer** binds a VkImageView with an attachment.
     5. **VkRenderpass** defines which attachment will be drawn into
+    6. **CommandPool&CommandBuffer** 录制使用的对象是command pool和command buffer, 每次调 vkCmd 就往 command buffer 塞内容进去,不能对多个帧使用相同的命令缓冲区。必须创建与帧一样多的命令缓冲区和命令池
 * [renderTarget](./Image/VulkanRenderTarget.png)
 
 ## Descriptor Set 
