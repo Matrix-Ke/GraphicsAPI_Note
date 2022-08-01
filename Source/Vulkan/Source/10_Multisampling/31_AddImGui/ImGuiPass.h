@@ -16,14 +16,7 @@
 #endif
 
 
-static void check_vk_result(VkResult err)
-{
-	if (err == 0)
-		return;
-	fprintf(stderr, "[vulkan] Error: VkResult = %d\n", err);
-	if (err < 0)
-		abort();
-}
+void check_vk_result(VkResult err);
 
 class VulkanSetup
 {
@@ -116,7 +109,7 @@ public:
 
 			g_PhysicalDevice = gpus[use_gpu];
 			free(gpus);
-		}
+	}
 
 		// Select graphics queue family
 		{
@@ -180,7 +173,7 @@ public:
 			err = vkCreateDescriptorPool(g_Device, &pool_info, g_Allocator, &g_DescriptorPool);
 			check_vk_result(err);
 		}
-	}
+}
 
 	// All the ImGui_ImplVulkanH_XXX structures/functions are optional helpers used by the demo.
 	// Your real engine/app may not use them.

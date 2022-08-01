@@ -1,4 +1,13 @@
-#include "VulkanSetup.h"
+#include "ImGuiPass.h"
+
+void check_vk_result(VkResult err)
+{
+	if (err == 0)
+		return;
+	fprintf(stderr, "[vulkan] Error: VkResult = %d\n", err);
+	if (err < 0)
+		abort();
+}
 
 VkAllocationCallbacks* VulkanSetup::g_Allocator = NULL;
 VkInstance					VulkanSetup::g_Instance = VK_NULL_HANDLE;

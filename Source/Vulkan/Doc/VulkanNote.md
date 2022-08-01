@@ -67,6 +67,7 @@
     3. **VkImageView** 本质就是对vkImage的一个封装，提供一些访问接口。object helps select only part (array or mip) of the VkImage (like stringView, arrayView or whathaveyou does). Also can help to match to some incompatible interface (by type casting format).
     4. **VkFramebuffer** binds a VkImageView with an attachment.
     5. **VkRenderpass** defines which attachment will be drawn into
+    6. **CommandPool&CommandBuffer** 录制使用的对象是command pool和command buffer, 每次调 vkCmd 就往 command buffer 塞内容进去,不能对多个帧使用相同的命令缓冲区。必须创建与帧一样多的命令缓冲区和命令池
 * [renderTarget](./Image/VulkanRenderTarget.png)
 
 ## Descriptor Set 
