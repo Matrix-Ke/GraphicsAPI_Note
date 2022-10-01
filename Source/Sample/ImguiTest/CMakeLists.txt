@@ -20,7 +20,8 @@ add_dependencies(${SampleName} imgui)
 add_dependencies(${SampleName} spdlog)
 
 target_include_directories(${SampleName}  PRIVATE imgui)
-# target_include_directories(${SampleName}  PRIVATE ${THIRD_PARTY_DIR}/imgui)
+target_include_directories(${SampleName}  PRIVATE ${THIRD_PARTY_DIR}/imgui)
+
 # target_include_directories(${SampleName} PUBLIC $<BUILD_INTERFACE:${imgui_SOURCE_DIR_}>)
 # target_include_directories(${SampleName} PUBLIC $<BUILD_INTERFACE:${Vulkan_INCLUDE_DIRS}>)
 
