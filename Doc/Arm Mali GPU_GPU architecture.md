@@ -1,4 +1,4 @@
-# 深入探索GPU图形架构
+# 深入探索移动端GPU图形架构
 
 ## 一. The Rendering Pipeline
 ### 渲染管线中的各个阶段各自负责那些工作呢？
@@ -116,7 +116,7 @@ Render passes会在最后一个drwa call后被产生， 所有的几何处理必
 Tile-based渲染的一个缺点是: 必须使用外部Memory来存放几何处理完成之后的data,这使得几何处理的成本会比,立即模式渲染的几何处理成本要高,因为硬件需要额外的Memory频宽跟空间,来暂时存放几何处理后的data 。因此应用程序同时必须遵守一些API的调用规则,才能确保Tile-based渲染可以有效的parallelize处理
 * 对于tessellation以及geometry shader,都会程序化的增加几何复杂度,因此会比较适合立即模式渲染的架构,因为增加的几何data,可以简单地写入FIFO之中,但对Tile-based GPU这些增加的几何data会需要写入外部Memory
 
-## 三. Shader core hardware
+## 四. Shader core hardware
 再介绍可程序化GPU shader核心的设计原理之前，需要先了解 CPU 是如何高效的工作。
 
 ### CPU 
@@ -177,7 +177,7 @@ SIMD对支持vector4（XYZW或RGBA） 运算友好，但是不适合现今复杂
 ![](./Image/a_Mail_Shader_Core.png)
 
 
-## 最佳实践原则
+## 五. 最佳实践原则
 引入：Antoine de Saint-Exupéry： A designer knows he has achieved perfection not when there is nothing left to add, but when there is nothing left to take away
 #### 在游戏开发中，提高GPU性能的使用原则：
 
@@ -225,7 +225,7 @@ RenderPass是基于图块渲染的主要构建块。在片段着色期间，对�
 * 在渲染过程中，local tile-buffer 中保留的内容不需要存入主存,除非需要在多个render pass之间保持不变。
   * 例如，多采样帧缓冲区可以作为 tile 回写的一部分来解析，所以只有解析的数据会产生任何带宽开销。原始多样本数据被简单地丢弃。
 * API 没有明确的RenderPass概念，API不同就存在不同实现方式。
-  * OpenGL ES 中的RenderPass完全是动态构建的: glBindFramebuffer()更改绘制目标，,eglSwapBuffers()来结束一帧，会将当前排队的命令转换为RenderPass，并开始一个新的RenderPass。
+  * OpenGL ES 中的RenderPass完全是动态构建的: glBindFramebuffer()更改绘制目标，eglSwapBuffers()来结束一帧，会将当前排队的命令转换为RenderPass，并开始一个新的RenderPass。
   * 更改当前绘制目标的附件绑定，调用 glFlush()、glFinish() 或 eglMakeCurrent()都可以导致当前排队的命令转换为RenderPass。
   * 渲染过程中的第一个命令，应该是 Clear、ClearBuffer 或 Invalidate()，在 glBindFramebuffer() 之后在任何draw call之前。
 
@@ -319,7 +319,99 @@ Display panels do not physically rotate
 - Wrong orientation reads can be expensive
 
 
-## 最佳资源（Content）实践
+### 最佳资源（Content）实践
+核心点就是降低geometry的数量。
+* 由于移动端TBR架构，导致geometry数量多，效率就会非常低。
+
+**Blended overdraw**
+过度绘制放大像素数
+- 多层阴影
+
+不透明透支大多已解决
+- 早期的 ZS 和 HSR
+
+透明透支仍然是个问题
+- 混合
+- 覆盖或着色器丢弃的 Alpha
+- 从平铺缓冲区读取的着色器
+
+常见原因：
+- 2D 内容和用户界面
+- 树叶
+- 粒子系统
+
+解决方案：
+![](./Image/Blended_overdraw.png)
+
+### 最佳Shader实践
+减少浮点运算
+
+尽量使用内建shader函数（use built-in function）, Use built-in functions Carefully ...
+Some built-in functions are expensive
+- Most are more expensive with highp inputs
+- Prefer mediump where possible
+
+**Try to avoid:**
+- Trigonometry
+$-\sin (), \cos (), \tan ()$
+$-\ldots$ and friends
+- Atomics
+- textureGrad()
+
+**相同的运算尽量移植到CPU端**
+Shaders often include uniform computation，Avoid uniform computation，Move uniform computation to the CPU，
+- Expressions where only inputs are uniforms and literals
+- Result is identical for every thread in a draw call
+* Drivers can optimize this
+  - ... but it's not free
+
+**Specialization helps**
+编译时专业化生成最高效的着色器Compile-time specialization generates the most efficient shaders
+- 运行时决策总是有开销
+
+Basic specialization
+- Compile-time control flow selection for if and loop limits (vs. uniform-based branches)
+- 编译时文字（与基于统一的“常量”相比）
+- 完全链接的管道（与单独的着色器对象相比）
+
+Usage oriented specialization, e.g.
+- Position-only shader variants for shadow mapping
+- Non-instanced shaders when instance count $==1$
+
+**平衡Shader Specialization和创建和管理大量着色器变体**
+
+**Beware branches**
+Beware branches， but don't go crazy avoiding them。 Graphics compilers are very good at avoiding simple branches
+- Conversion to arithmetic
+- Conversion to conditional select
+ 
+Clever tricks to "fix" branches often slower
+- Compiler usually can't unpick
+
+**Pack vertex inputs**
+加载/存储指令将加载/存储向量
+- 更长的向量 $=$ 更少的指令
+- 例如。 vec4 比 $2 x$ vec2 更有效
+插值器指令将插值向量
+- 打包变量 $=$ 更少的指令
+- 例如。 vec4 比 vec $3+$ float 更高效
+
+
+**Beware late-ZS triggers**
+Use of discard statements
+- Forces late-ZS update, disables HSR
+
+Use of shader writes to gl_FragDepth
+- Forces late-ZS test and update, disables HSR
+
+Use of shader ZS reads from framebuffer
+- Forces late-ZS update, disables HSR
+
+Use of shader color reads from framebuffer
+- Disables HSR
+
+
+## todo 了解GPU的调度
 ### 参考资料
 
 1. [Triple Buffering: What It Is & How It Works] (https://cybersided.com/triple-buffering/#Double_Buffering)

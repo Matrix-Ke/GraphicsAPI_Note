@@ -1,16 +1,16 @@
+#! https://zhuanlan.zhihu.com/p/545569145
+
 # 深入探索GPU图形架构笔记
 ### 图形流水线
 1. Pipeline Architecture Image
     * fermipipeline
     ![fermipipeline](./Image/fermipipeline.png)
-    <!-- * Ampere GPU Architecture -->
-    <!-- ![AmpereArchitect](./Image/AmpereArchitecture.png) -->
-4. GPU所有功能单元：
+2. GPU所有功能单元：
     * ![logicalUnit](./Image/LogicalUnit.png)
-1. 图形流水单元
+3. 图形流水单元
     * 图形流水线：
     ![pipeline](./Image/Pipeline.png)
-3. 帧缓存（framebuffer）:
+4. 帧缓存（framebuffer）:
     * 在内存， 这块内存的区域和显示器的每个像素是一一对应的。现代计算机适合4字节对齐（32bit，对应一个像素）
     * 早期显卡： 把帧缓存的内容输出到显示器 
 
