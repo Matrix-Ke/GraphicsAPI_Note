@@ -101,7 +101,7 @@ VkSubpassDescription subpass = {};
 subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
 ```
 
-在未来，Vulkan有可能支持计算子过程，索移我们必须显式声明这是一个图形子过程。接下来，我们要指定颜色附件的引用：
+在未来，Vulkan有可能支持计算子过程，所以我们必须显式声明这是一个图形子过程。接下来，我们要指定颜色附件的引用：
 
 ```c++
 subpass.colorAttachmentCount = 1;

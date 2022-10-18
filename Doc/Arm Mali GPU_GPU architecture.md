@@ -1,3 +1,4 @@
+#! https://zhuanlan.zhihu.com/p/573930989
 # 深入探索移动端GPU图形架构
 
 ## 一. The Rendering Pipeline
@@ -415,6 +416,8 @@ Use of shader color reads from framebuffer
 ### 参考资料
 
 1. [Triple Buffering: What It Is & How It Works] (https://cybersided.com/triple-buffering/#Double_Buffering)
-1. [Arm Mali GPU Training Series] (https://youtu.be/tnR4mExVClY)
+2. [Arm Mali GPU Training Series] (https://youtu.be/tnR4mExVClY)
+3. [vulkan-tutorial] (https://vulkan-tutorial.com/)
+4. [VulkanGuide] (https://vkguide.dev/)
 
 

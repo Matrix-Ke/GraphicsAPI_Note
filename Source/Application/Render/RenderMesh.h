@@ -1,0 +1,84 @@
+#pragma once
+
+#include "Math/vector2.h"
+#include "Math/vector3.h"
+#include "Math/vector4.h"
+
+#include <array>
+#include <vulkan/vulkan.h>
+
+namespace Matrix
+{
+	struct MeshVertex
+	{
+		struct VulkanMeshVertexPostition
+		{
+			Math::Vector3 position;
+		};
+
+		struct VulkanMeshVertexVaryingEnableBlending
+		{
+			Math::Vector3 normal;
+			Math::Vector3 tangent;
+		};
+
+		struct VulkanMeshVertexVarying
+		{
+			Math::Vector2 texcoord;
+		};
+
+		struct VulkanMeshVertexJointBinding
+		{
+			int indices[4];
+			Math::Vector4  weights;
+		};
+
+		static std::array<VkVertexInputBindingDescription, 3> getBindingDescriptions()
+		{
+			std::array<VkVertexInputBindingDescription, 3> binding_descriptions{};
+
+			// position
+			binding_descriptions[0].binding = 0;
+			binding_descriptions[0].stride = sizeof(VulkanMeshVertexPostition);
+			binding_descriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+			// varying blending
+			binding_descriptions[1].binding = 1;
+			binding_descriptions[1].stride = sizeof(VulkanMeshVertexVaryingEnableBlending);
+			binding_descriptions[1].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+			// varying
+			binding_descriptions[2].binding = 2;
+			binding_descriptions[2].stride = sizeof(VulkanMeshVertexVarying);
+			binding_descriptions[2].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+			return binding_descriptions;
+		}
+
+		static std::array<VkVertexInputAttributeDescription, 4> getAttributeDescriptions()
+		{
+			std::array<VkVertexInputAttributeDescription, 4> attribute_descriptions{};
+
+			// position
+			attribute_descriptions[0].binding = 0;
+			attribute_descriptions[0].location = 0;
+			attribute_descriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+			attribute_descriptions[0].offset = offsetof(VulkanMeshVertexPostition, position);
+
+			// varying blending
+			attribute_descriptions[1].binding = 1;
+			attribute_descriptions[1].location = 1;
+			attribute_descriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+			attribute_descriptions[1].offset = offsetof(VulkanMeshVertexVaryingEnableBlending, normal);
+			attribute_descriptions[2].binding = 1;
+			attribute_descriptions[2].location = 2;
+			attribute_descriptions[2].format = VK_FORMAT_R32G32B32_SFLOAT;
+			attribute_descriptions[2].offset = offsetof(VulkanMeshVertexVaryingEnableBlending, tangent);
+
+			// varying
+			attribute_descriptions[3].binding = 2;
+			attribute_descriptions[3].location = 3;
+			attribute_descriptions[3].format = VK_FORMAT_R32G32_SFLOAT;
+			attribute_descriptions[3].offset = offsetof(VulkanMeshVertexVarying, texcoord);
+
+			return attribute_descriptions;
+		}
+	};
+} 

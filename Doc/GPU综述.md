@@ -85,13 +85,15 @@
 
 ### 图形流水线的不可编程单元
 1. 广义光栅化器：PrimitiveAssembler + Rasterizer
-    * 扫描线算法： ddx， ddy（每个三角形只需要算一次）
+    * 扫描线算法： ddx， ddy（每个三角形只需要算一次）(现在已经不是采用扫描线算法经行光栅化了，一般采用可以并行的算法)
     ![ddx_ddy](./Image/ddx_ddy.png)  
     * 光栅化规则：
         * 普通模式： 光栅化后的像素中心是否在三角形内部， 对于线： 线是否经过像素里的棱形区域。
         * 保守式光栅化： 沾到就是覆盖（常用于体素化）
 2. 将光栅算法部署到硬件上
-    * 实际光栅化输出是一个2x2像素的一个quad
+    * 实际光栅化输出是一个相互交叉的2x2像素的一个quad(并且通过相邻范围内的quad相减可以得到ddx，ddy)， 但是边缘部分会存在浪费。
+    * 当场景中中存在大量小三角形的时候，可以构造以像素为单位的软件光栅化器，性能反而会更高（eg： ninate）。
+    ![](./Image/Rasterize_Quad.png)
     * 立即式光栅化： PC端，逐像素,频繁读写，能耗高
     * tiled based： 移动端。
         * 需要有tile上拥有 clip memory充当cache： 把render target对应的区域载入cache建立映射，CliipMemory比GPU内存要快的多，且省电
@@ -104,21 +106,20 @@
     * tile based  由于三角形会被tile打断，性能会下降。同时在多个RT切换时候，对于tilebase方式来说开销很大。
     ![immediate](./Image/immediateRasterize.png)
     ![Tilebased](./Image/TilebasedRasterize.png)
-4. early-Z: 
-    * 不能独立存在，需要满足：
+    * early-Z: 不能独立存在，需要满足：
         - early-Z ： 需要显示开启
         - Alphatest不开启，
         - 不能有tex kill：即在shader代码中有像素摒弃指令（DX的discard，OpenGL的clip）
         - 不能开启Multi-Sampling：多采样会影响周边像素，而Early-Z阶段无法得知周边像素是否被裁剪，故无法提前剔除
         - 不需要混合:没有透明，半透明存在。
-5. TBDR模式（tile-based Deferred Rendering）： 
+4. TBDR模式（tile-based Deferred Rendering）： 
     * TBDR在开启深度测试的情况下（需要一系列条件满足才能开启）：
         * 将光栅化的像素属性都写入片上内存: pixel{ position：<x,x,x>; Color:<x,x,x> },  根据信息不可见像素被丢弃
-6. Tiled caching（Nvdia Mawwell开始）
+5. Tiled caching（Nvdia Mawwell开始）
     * tile 比较大，cached也比较大
     ![Tile caching](./Image/Tile_Caching.png)
-4. output merger
-
+6. output merger
+    * alpha blend 有硬件支持，速度远高于软件。
 ###  光线跟踪流水线
 
 

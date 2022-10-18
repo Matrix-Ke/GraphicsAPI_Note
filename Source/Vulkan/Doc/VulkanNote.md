@@ -23,6 +23,7 @@
 ### vulkan核心概念理解
 * 多线程部分[Multi-Threading in Vulkan](https://community.arm.com/arm-community-blogs/b/graphics-gaming-and-vr-blog/posts/multi-threading-in-vulkan)
 * vulkan同步方案 [Yet another blog explaining Vulkan synchronization](https://themaister.net/blog/2019/08/14/yet-another-blog-explaining-vulkan-synchronization/)
+* Vulkan command: 图形api将图形绘制命令分成了Record和submit。对应了command buffer和queue。 其中vkcmd对应的就是record，而vkQueue对应的是提交命令。
 * 提交顺序：commandBuffer——>  VkSubmitInfo   ----->  vkQueueSubmit ------> GPU 
     | 对象 | 命令提交顺序 |
     | :--- | :---- |
@@ -79,4 +80,9 @@
 
 ### Descriptor Set 
 * **descriptorLayout**: 主要用来约束descriptrSet对象有多少Buffer和image，用于创建DescrioptorSet的信息。
-* **descriptorSet**: 必须要通过vkUpdateDescriptorSets()函数，将descriptor和实际的buffer数据关联起来。 descriptor其实就是实际buffer或者image的指针，但是无法独立存在，必须依附于descriptorSet。 
+* **descriptorSet**: 必须要通过VkWriteDescriptorSet()函数将descriptor和实际的buffer数据关联起来(绑定的同时需要及时使用vkUpdateDescriptorSets更新数据)。 descriptor其实就是实际buffer或者image的指针，但是无法独立存在，必须依附于descriptorSet。 然后才可以在shader中通过descriptor访问实际的buffer数据。一个descriptor可以被多个shader使用，但是只能绑定到一个binding槽位中。
+
+### renderPass
+* SubPass: [Vulkan input attachments and sub passes](https://www.saschawillems.de/blog/2018/07/19/vulkan-input-attachments-and-sub-passes/)
+* ![](./Image/Unbenannt-1-2.png)
+* ![](./Image/subpasses.png)

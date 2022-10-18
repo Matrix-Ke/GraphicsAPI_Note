@@ -171,6 +171,7 @@ dependency.dstSubpass = 0;
 ```
 
 头两个字段指定了依赖和被依赖的子过程的索引。特殊值`VK_SUBPASS_EXTERNAL`指的是渲染过程开始之前或者结束之后的那个隐式的子过程，到底指哪个取决于它定义在了`srcSubpass`还是`dstSubpass`。索引值`0`代表了我们的子过程，它是第一个，也是唯一一个子过程。`dstSubpass`必须永远比`srcSubpass`高，以避免循环依赖。
+The first two fields specify the indices of the dependency and the dependent subpass. The special value `VK_SUBPASS_EXTERNAL` refers to the implicit subpass before or after the render pass depending on whether it is specified in`srcSubpass` or `dstSubpass`. The index `0` refers to our subpass, which is the first and only one. The `dstSubpass` must always be higher than `srcSubpass` to prevent cycles in the dependency graph (unless one of the subpasses is`VK_SUBPASS_EXTERNAL`).
 
 ```c++
 dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
