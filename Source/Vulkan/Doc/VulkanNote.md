@@ -1,5 +1,16 @@
 #! https://zhuanlan.zhihu.com/p/548754937
 # vulkan 学习笔记
+
+## 绘制流程
+绘制流程亦可以对应到RHI层的设计上面去。
+1. physical device
+2. createResource （buffer， image。。。）
+3. record commandList
+4. submit Draw call
+5. synchronization　
+
+
+
 ### 博客文章
 * 学习[官方推荐教程vulkan-tutorial] (https://vulkan-tutorial.com/) : 本项目代码就是根据这教程实现的
 * [Welcome to VulkanGuide] (https://vkguide.dev/)  图文并茂，语言精简

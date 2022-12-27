@@ -2,6 +2,7 @@
 
 #include "Editor/WindowsApplication.h"
 #include "Render/RenderType.h"
+#include "Render/RenderSwapContext.h"
 
 #include <array>
 #include <memory>
@@ -16,9 +17,18 @@ namespace Matrix
 	class RenderScene;
 	class RenderCamera;
 
+
 	struct RenderSystemInitInfo
 	{
 		std::shared_ptr<WindowSystem> window_system;
+	};
+
+	struct EngineContentViewport
+	{
+		float x{ 0.f };
+		float y{ 0.f };
+		float width{ 0.f };
+		float height{ 0.f };
 	};
 
 	class RenderSystem
@@ -30,10 +40,17 @@ namespace Matrix
 		void initialize(RenderSystemInitInfo init_info);
 		void tick();
 
+		RenderSwapContext& getSwapContext();
+		void                          swapLogicRenderData();
+		std::shared_ptr<RenderCamera> getRenderCamera() const;
+
+		void      initializeUIRenderBackend(EditorUI* window_ui);
+		//todo...  pick up object 
+
 		void processSwapData(); //处理CPU准备好的下一帧逻辑
 	private:
 		RENDER_PIPELINE_TYPE m_render_pipeline_type{ RENDER_PIPELINE_TYPE::DEFERRED_PIPELINE };
-		//RenderSwapContext m_swap_context;
+		RenderSwapContext m_swap_context;
 
 		std::shared_ptr<VulkanRHI>          m_rhi;
 		std::shared_ptr<RenderCamera>       m_render_camera;

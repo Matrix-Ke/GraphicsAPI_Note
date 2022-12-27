@@ -1,4 +1,4 @@
-#! https://zhuanlan.zhihu.com/p/548753437
+#! https://zhuanlan.zhihu.com/p/580655563
 # Vulkan图像布局和排列 Image Layout和Tiling区别
 
 理解layout 和 tiling的区别

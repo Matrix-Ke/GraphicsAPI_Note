@@ -12,6 +12,9 @@ namespace Matrix
 		bool                                enable_fxaa{ false };
 		std::shared_ptr<RenderResourceBase> render_resource;
 	};
+	/*
+	renderpipeline 1. 负责初始化各个pass  2.控制各个pass调用顺序
+	*/
 
 	class RenderPipeline
 	{

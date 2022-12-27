@@ -6,11 +6,12 @@
     * fermipipeline
     ![fermipipeline](./Image/fermipipeline.png)
 2. GPU所有功能单元：
-    * ![logicalUnit](./Image/LogicalUnit.png)
-3. 图形流水单元
+	* 逻辑单元
+	![logicalUnit](./Image/LogicalUnit.png)
+4. 图形流水单元
     * 图形流水线：
     ![pipeline](./Image/Pipeline.png)
-4. 帧缓存（framebuffer）:
+5. 帧缓存（framebuffer）:
     * 在内存， 这块内存的区域和显示器的每个像素是一一对应的。现代计算机适合4字节对齐（32bit，对应一个像素）
     * 早期显卡： 把帧缓存的内容输出到显示器 
 
@@ -101,7 +102,7 @@
         * 在像素着色器中，会将相邻的四个像素作为不可分隔的一组，送入同一个SM内4个不同的Core
             - 优点： 加速像素分派工作，降低schedule任务。
             - 缺点： 对于小的三角形（占比小于四个像素），会造成over draw。
-        ![ClipMemory](./Image/ClipMemory.png)
+            ![ClipMemory](./Image/ClipMemory.png)
 3. 性能分析
     * tile based  由于三角形会被tile打断，性能会下降。同时在多个RT切换时候，对于tilebase方式来说开销很大。
     ![immediate](./Image/immediateRasterize.png)
