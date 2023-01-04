@@ -1,4 +1,4 @@
-# 概述
+# Vulkan渲染流程总结
 
 本章首先介绍 Vulkan 以及它所解决的问题。然后我们会看一下为了画出第一个三角形所需要的步骤。这可以让你纵观全局并且理清后续每一章在整个过程中的位置。我们将会以展示 Vulkan API 的结构以及它们的一般使用模式作结。
 
@@ -38,7 +38,7 @@ Vulkan 应用程序从一个 [`VkInstance`](https://www.khronos.org/registry/vul
 
 ### 第五步 渲染路径
 
-Vulkan 中的渲染路径（render passes）描述了在渲染操作时要使用的图像类型、图像的使用方式以及处理图像的内容的方式。在我们最初的这个绘制三角形的应用中，我们将告诉 Vulkan ，我们将会使用一个图像作为颜色目标，并且我们想要在绘制之前把它清除为纯色（*译者注：想一想 `glClearColor`* ）。然而一个渲染路径只描述图像的类型，[`VkFramebuffer`](https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFramebuffer.html)（帧缓冲）才会把这些选项匹配到具体的图像上。
+Vulkan 中的渲染路径（render passes）描述了在渲染操作时要使用的图像类型、图像的使用方式以及处理图像的内容的方式。在我们最初的这个绘制三角形的应用中，我们将告诉 Vulkan ，我们将会使用一个图像作为颜色目标，并且我们想要在绘制之前把它清除为纯色（*例如：opengl的 `glClearColor`* ）。然而一个渲染路径只描述图像的类型，[`VkFramebuffer`](https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFramebuffer.html)（帧缓冲）才会把这些选项匹配到具体的图像上。
 
 ### 第六步 图形管线
 
