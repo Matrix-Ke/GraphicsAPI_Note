@@ -1,6 +1,8 @@
 This page lists solutions to common problems that you may encounter while
 developing Vulkan applications.
 
+
+
 * **I get an access violation error in the core validation layer**: Make sure
 that MSI Afterburner / RivaTuner Statistics Server is not running, because it
 has some compatibility problems with Vulkan.
@@ -14,8 +16,8 @@ validation layers are turned on, then you should ensure that your Vulkan SDK is
 correctly installed by following the "Verify the Installation" instructions [on this page](https://vulkan.lunarg.com/doc/view/1.2.135.0/windows/getting_started.html). Also ensure that your SDK version is at least 1.1.106.0 to support the `VK_LAYER_KHRONOS_validation` layer.
 
 * **vkCreateSwapchainKHR triggers an error in SteamOverlayVulkanLayer64.dll**:
-This appears to be a compatibility problem in the Steam client beta. There are a
-few possible workarounds:
+  This appears to be a compatibility problem in the Steam client beta. There are a
+  few possible workarounds:
     * Opt out of the Steam beta program.
     * Set the `DISABLE_VK_LAYER_VALVE_steam_overlay_1` environment variable to `1`
     * Delete the Steam overlay Vulkan layer entry in the registry under `HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\ImplicitLayers`

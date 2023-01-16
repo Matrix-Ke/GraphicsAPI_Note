@@ -52,3 +52,46 @@
 如果你在跟着教程操作的时候遇到了问题，首先请查看“常见问题”部分是否已经列出并解决了你的问题。如果没有，请放轻松并且在最相关的那一章的评论区提问。
 
 准备好深入了解高性能图形API的未来了吗？让我们开始吧！
+
+
+
+步骤有很多，但是在接下来的章节中，每一步的目标都会变得非常简单而清晰。如果对某一步在整个程序中的作用有疑惑，应该回来参考本章。
+
+## API概念
+
+本章将简要概述Vulkan API在更低的级别上的结构。
+
+
+### 代码约定
+
+Vulkan中所有的函数、枚举类型和结构体都定义在了`vulkan.h`头文件中，这个文件在 LunarG 开发的 [Vulkan SDK](https://lunarg.com/vulkan-sdk/) 里。下一章将会介绍如何安装这个SDK。
+
+函数以小写的`vk`开头，枚举类型和结构体以`Vk`开头，枚举值则以`VK_`开头。这套API非常依赖结构体作为函数参数。举个例子，对象通常以这种形式创建：
+
+```c++
+VkXXXCreateInfo createInfo = {};
+createInfo.sType = VK_STRUCTURE_TYPE_XXX_CREATE_INFO;
+createInfo.pNext = nullptr;
+createInfo.foo = ...;
+createInfo.bar = ...;
+
+VkXXX object;
+if (vkCreateXXX(&createInfo, nullptr, &object) != VK_SUCCESS) {
+    std::cerr << "failed to create object" << std::endl;
+    return false;
+}
+```
+
+Vulkan中的许多结构体要求在`sType`成员中明确指定结构体类型。`pNext`成员可以是一个指向扩展结构的指针，在此教程中它将被永远置为`nullptr`。创建或销毁一个对象的函数会有一个[`VkAllocationCallbacks`](https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkAllocationCallbacks.html)参数，允许为启动内存使用一个自定义的分配器，它在此教程中也将永远被置为`nullptr`。
+
+几乎所有函数的返回值都是一个[`VkResult`](https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkResult.html)的枚举类型，它要么是`VK_SUCCESS`（成功），要么是一个错误代码。 Vulkan 规范说明了每个函数会返回什么错误代码以及它们的含义。
+
+### 验证层
+
+就像之前说过的， Vulkan 被设计为一个高性能低负载的 API 。因此它默认的错误检查和调试能力非常有限。当做错了什么的时候，驱动程序常常是直接崩溃而不是返回一个错误代码——或者更糟糕的是，在的显卡上跑得起来，在别的显卡上就完全不行了。
+
+可以通过“验证层”（validation layers）来给 Vulkan 启用一个扩展的错误检查功能。验证层是一些可以被插入到 API 与显卡驱动之间的代码片段，可以用来运行额外的函数参数检查或者追踪内存管理问题。它的优点是可以在开发的时候启用验证层，然后在发行版本中完全禁用它以避免性能开销。每个人都可以编写自己的验证层，不过 LunarG 开发的 Vulkan SDK 提供了一些标准的验证层，在教程中用到的就是它们。为了从验证层接收调试信息，需要注册一个回调函数。
+
+Vulkan中每个操作都非常明确，并且还有如此灵活的验证层可用，因此事实上 Vulkan 比 OpenGL 和 Direct3D 更容易找到错误原因。
+
+在开始写代码之前只有一步要做了，那就是配置开发环境。

@@ -16,7 +16,77 @@ RHI是Render Hardware Interface的缩写，现代图形引擎都会RHI把各个�
 一般而言对各类平台图形API会抽象出各自的RHI层。 如：
 OpenglRHI，　DirectXRHI， VulkanRHI等。。。
 
-### 1. RenderResource：渲染准备阶段
+### 1. RenderResource：渲染准备
+
+#### RHI渲染资源
+渲染一部分需要指令数据，另外一部分就是资源数据的准备。 通过对图形API资源的封装形成RHIResource（现代引擎一般还会对RHI资源进行进一步的封装以提供给渲染线程使用的RenderResource）。 下面就是对图形API资源封装（参考《游戏引擎原理与实践卷2》）。
+![](./Image/RHI_Resource.png)
+eg:
+```c++
+class RHI_API FRHITexture2D : public FRHITexture
+{
+public:
+	
+	/** Initialization constructor. */
+	FRHITexture2D(uint32 InSizeX,uint32 InSizeY,uint32 InNumMips,uint32 InNumSamples,EPixelFormat InFormat,ETextureCreateFlags InFlags, const FClearValueBinding& InClearValue)
+	: FRHITexture(InNumMips, InNumSamples, InFormat, InFlags, NULL, InClearValue)
+	, SizeX(InSizeX)
+	, SizeY(InSizeY)
+	{}
+	
+	// Dynamic cast methods.
+	virtual FRHITexture2D* GetTexture2D() { return this; }
+
+	/** @return The width of the texture. */
+	uint32 GetSizeX() const { return SizeX; }
+	
+	/** @return The height of the texture. */
+	uint32 GetSizeY() const { return SizeY; }
+
+	inline FIntPoint GetSizeXY() const
+	{
+		return FIntPoint(SizeX, SizeY);
+	}
+
+	virtual FIntVector GetSizeXYZ() const override
+	{
+		return FIntVector(SizeX, SizeY, 1);
+	}
+
+private:
+
+	uint32 SizeX;
+	uint32 SizeY;
+};
+```
+
+>Note:
+>* RHI资源有平台相关的部分会被平台继承实现：如FRHIUniformbuffer涉及到DX12，Vulkan， OpenGL，Metal版本。
+>* 也有与平台无关的部分: 着色器绑定，着色器，管线状态。
+
+ue4对RHIresource进一步封装RenderResource
+![](./Image/UE_RenderResource.jpg)
+eg:
+```c++
+class FTexture : public FRenderResource
+{
+public:
+
+	/** The texture's RHI resource. */
+	FTextureRHIRef		TextureRHI;
+
+	/** The sampler state to use for the texture. */
+	FSamplerStateRHIRef SamplerStateRHI;
+
+	/** Sampler state to be used in deferred passes when discontinuities in ddx / ddy would cause too blurry of a mip to be used. */
+	FSamplerStateRHIRef DeferredPassSamplerStateRHI;
+
+	/** The last time the texture has been bound */
+	mutable double		LastRenderTime;
+}
+```
+数据部分一般会存储在一个全局的RenderContext中。
+
 
 #### 管线的状态的创建：
 渲染管线的创建：
@@ -54,9 +124,10 @@ RHICreateBlendState
 
 
 ### 2. RenderCommandList： 渲染命令列表
-整个渲染流程基本上就是通过camera得到view的可绘制物体的信息数据，将这些信息数据转换成commandlist和RHIresource。然后用渲染RHI层DrawCall调用绘制。
+整个渲染流程基本上就是通过camera得到view的可绘制物体的信息数据，将这些信息数据转换成commandlist和RHIresource。而其中的指令信息由渲染线程Push到RHI线程，然后RHI层DrawCall调用绘制命令执行。
 
-commandList可以允许多个线程并行提交，可以和上层设计的多线程框架结合起来。 这与提交drawcall并不相同。 
+commandBuffer可以允许多个线程并行提交，可以和上层设计的多线程框架结合起来。
+
 这里以vulkan为例：
 
 vulkan的commandbuffer记录各种vkcmdxxx的命令。 如下：
@@ -110,7 +181,7 @@ void HelloTriangleApplication::recordCommandBuffer(VkCommandBuffer commandBuffer
 	}
 }
 ```
-
+#### UE4的FRHICommand设计
 
 ### 3. DrawCall：渲染命令提交submit
 DrawPrimitive()
@@ -124,8 +195,8 @@ vulkan自身有一套多线程机制，这也是vulkan这种现代图形API性�
 具体的同步原语：Event、Semaphore、Fence
 
 
-## RHI渲染资源
-渲染一部分需要指令数据，另外就是资源数据的准备。 下面就是对图形API资源封装（参考《游戏引擎原理与实践卷2》）：
-![](./Image/RHI_Resource.png)
 
-数据部分一般会存储在一个全局的RenderContext中。
+
+## 参考数据
+1. [剖析虚幻渲染体系（10）- RHI] (https://www.cnblogs.com/timlly/p/15156626.html)
+2. [【[UnrealFestOnline2020]用Unreal Insights收集、分析及可视化你的数据(官方字幕)】] ( https://www.bilibili.com/video/BV1Ay4y1q7Kj/?share_source=copy_web&vd_source=e84f3d79efba7dc72e6306f35613222e)
